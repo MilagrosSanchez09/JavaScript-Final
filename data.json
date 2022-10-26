@@ -4,14 +4,14 @@
         "name": "Anna",
         "price": "5000",
         "description": "Princess Anna, from 'Frozen'.",
-        "image": "assets/img/anna.jpg" 
+        "image": "assets/img/anna1.jpg" 
     },
     {
         "id":102,
         "name": "Ariel",
         "price": "5000",
         "description": "Princess Ariel, from 'The Little Marmaid'.",
-        "image": "assets/img/ariel.jpg"
+        "image": "assets/img/ariel2.jpg"
     },
     {
         "id":103,
@@ -25,7 +25,7 @@
         "name": "Belle",
         "price": "5000",
         "description": "Princess Belle, from 'Beauty and the Beast'.",
-        "image": "assets/img/belle 1.jpg"
+        "image": "assets/img/bella.jpg"
     },
     {
         "id":105,
@@ -74,7 +74,7 @@
         "name": "Merida",
         "price": "5000",
         "description": "Merida, from 'Brave'.",
-        "image": "assets/img/merida.jpg"
+        "image": "assets/img/merida1.jpg"
     },
     {
         "id":112,

@@ -86,7 +86,7 @@ function ready() {
 function buyButtonClicked() {
     //alert('Su pedido se ha realizado con éxito.')
     Swal.fire({
-        position: 'top-center',
+        position: 'center',
         icon: 'success',
         title: 'Su pedido se ha realizado con éxito.',
         showConfirmButton: false,
@@ -135,7 +135,6 @@ function addCartClicked(event) {
 
     updatetotal();
 
-    
 };
 
 //Función para que no se dupliquen los elementos en el carrito
@@ -148,7 +147,7 @@ function addProductToCart(title, price, productImg) {
     for (let i = 0; i < cartItemsNames.length; i++) {
         if (cartItemsNames[i].innerText == title) {
             Swal.fire({
-                position: 'top-center',
+                position: 'center',
                 icon: 'error',
                 title: 'Ya existe el producto en el carrito. Puede agregar más unidades dentro del mismo.',
                 showConfirmButton: false,
@@ -158,10 +157,11 @@ function addProductToCart(title, price, productImg) {
             return;
         }
     }
+    
     if (flag == 0) {
         //Sweet Alert 2 - Alerta para informar que se ha agregado al carrito.
         Swal.fire({
-            position: 'top-center',
+            position: 'center',
             icon: 'success',
             title: 'Se ha agregado al carrito.',
             showConfirmButton: false,
@@ -187,7 +187,11 @@ function addProductToCart(title, price, productImg) {
     cartShopBox.getElementsByClassName('cart-remove')[0].addEventListener("change", removeCartItem);
     cartShopBox.getElementsByClassName('cart-quantity')[0].addEventListener("change", quantityChanged);
 
-    
+    const saveLocal = (clave, valor) => {
+        localStorage.setItem(clave, valor)
+    };
+    saveLocal("carrito", JSON.stringify('cart-content'));
+    document.getElementsById('cart-content')
 };
 
 //Actualizo el total
