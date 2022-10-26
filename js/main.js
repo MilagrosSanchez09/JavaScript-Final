@@ -1,5 +1,6 @@
 const muñecos = []
 
+
 //card
 
 const loadProducts = (muñecos) => {
@@ -105,6 +106,8 @@ function removeCartItem(event) {
     let buttonClicked = event.target
     buttonClicked.parentElement.remove()
     updatetotal();
+    
+    
 };
 
 //Cantidad
@@ -112,8 +115,12 @@ function quantityChanged(event) {
     let input = event.target
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
+        
+        
     }
     updatetotal();
+    
+    
 };
 
 //Agregar productos al carrito
@@ -126,10 +133,9 @@ function addCartClicked(event) {
     let productImg = shopProducts.getElementsByClassName("product-img")[0].src;
     addProductToCart(title, price, productImg);
 
-    //localStorage.setItem('cart-content', JSON.stringify(cartItems));
-
     updatetotal();
 
+    
 };
 
 //Función para que no se dupliquen los elementos en el carrito
@@ -163,6 +169,8 @@ function addProductToCart(title, price, productImg) {
         })
     }
 
+    
+
     let cartBoxContent =
         `
                           <img src="${productImg}" alt="" class="cart-img">
@@ -178,6 +186,8 @@ function addProductToCart(title, price, productImg) {
     cartItems.append(cartShopBox)
     cartShopBox.getElementsByClassName('cart-remove')[0].addEventListener("change", removeCartItem);
     cartShopBox.getElementsByClassName('cart-quantity')[0].addEventListener("change", quantityChanged);
+
+    
 };
 
 //Actualizo el total
@@ -197,3 +207,4 @@ function updatetotal() {
 
     document.getElementsByClassName("total-price")[0].innerText = "$" + total;
 };
+
