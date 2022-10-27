@@ -1,5 +1,5 @@
 const muñecos = []
-
+const cartProducts = [] 
 
 //card
 
@@ -16,7 +16,34 @@ const loadProducts = (muñecos) => {
         `;
         container.appendChild(div);
     }
+    loadCart();
 }
+
+const loadCart = () => { 
+    let products = JSON.parse(localStorage.getItem('products'));
+
+    for (let i = 0; i < products.length; i++) {
+        let cartItems = document.getElementsByClassName('cart-content')[0];
+        let cartShopBox = document.createElement("div");
+        cartShopBox.classList.add("cart-box");
+        let cartBoxContent =
+            `
+                            
+                              <img src="${products[i].image}" alt="" class="cart-img">
+                                <div class="detail-box">
+                                <div class="cart-product-title">${products[i].name}</div>
+                                  <div class="cart-price">${products[i].price}</div>
+                                  <input type="number" value="1" class="cart-quantity">
+                                </div>
+                                <!--Remove cart-->
+                                <i class='bx bxs-trash-alt cart-remove'></i>
+                            `;
+        cartShopBox.innerHTML = cartBoxContent
+        cartItems.append(cartShopBox)
+        cartShopBox.getElementsByClassName('cart-remove')[0].addEventListener("change", removeCartItem);
+        cartShopBox.getElementsByClassName('cart-quantity')[0].addEventListener("change", quantityChanged);
+    }
+};
 
 //TRAIGO EL ARRAY DE PRODUCTOS
 const getData = async () => {
@@ -77,6 +104,7 @@ function ready() {
         let button = addCart[i];
         button.addEventListener("click", addCartClicked);
     }
+    saveLocal();
     //Boton comprar 
     document.getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked);
 
@@ -84,7 +112,6 @@ function ready() {
 
 //Boton comprar
 function buyButtonClicked() {
-    //alert('Su pedido se ha realizado con éxito.')
     Swal.fire({
         position: 'center',
         icon: 'success',
@@ -106,8 +133,6 @@ function removeCartItem(event) {
     let buttonClicked = event.target
     buttonClicked.parentElement.remove()
     updatetotal();
-    
-    
 };
 
 //Cantidad
@@ -115,26 +140,19 @@ function quantityChanged(event) {
     let input = event.target
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
-        
-        
     }
     updatetotal();
-    
-    
 };
 
 //Agregar productos al carrito
 function addCartClicked(event) {
-
     let button = event.target
     let shopProducts = button.parentElement
     let title = shopProducts.getElementsByClassName("product-title")[0].innerText;
     let price = shopProducts.getElementsByClassName("price")[0].innerText;
     let productImg = shopProducts.getElementsByClassName("product-img")[0].src;
     addProductToCart(title, price, productImg);
-
     updatetotal();
-
 };
 
 //Función para que no se dupliquen los elementos en el carrito
@@ -157,7 +175,6 @@ function addProductToCart(title, price, productImg) {
             return;
         }
     }
-    
     if (flag == 0) {
         //Sweet Alert 2 - Alerta para informar que se ha agregado al carrito.
         Swal.fire({
@@ -168,9 +185,6 @@ function addProductToCart(title, price, productImg) {
             timer: 1500
         })
     }
-
-    
-
     let cartBoxContent =
         `
                           <img src="${productImg}" alt="" class="cart-img">
@@ -187,11 +201,9 @@ function addProductToCart(title, price, productImg) {
     cartShopBox.getElementsByClassName('cart-remove')[0].addEventListener("change", removeCartItem);
     cartShopBox.getElementsByClassName('cart-quantity')[0].addEventListener("change", quantityChanged);
 
-    const saveLocal = (clave, valor) => {
-        localStorage.setItem(clave, valor)
-    };
-    saveLocal("carrito", JSON.stringify('cart-content'));
-    document.getElementsById('cart-content')
+    let products = { 'name': title, 'price': price, 'image': productImg }; 
+
+    cartProducts.push(products); 
 };
 
 //Actualizo el total
@@ -210,5 +222,13 @@ function updatetotal() {
     }
 
     document.getElementsByClassName("total-price")[0].innerText = "$" + total;
+
+    const saveLocal = (clave, valor) => { 
+        localStorage.setItem(clave, valor)
+    };
+    
+    saveLocal('products', JSON.stringify(cartProducts));  
+
 };
+
 
