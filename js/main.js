@@ -104,7 +104,7 @@ function ready() {
         let button = addCart[i];
         button.addEventListener("click", addCartClicked);
     }
-    saveLocal();
+    
     //Boton comprar 
     document.getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked);
 
